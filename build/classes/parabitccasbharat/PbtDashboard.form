@@ -27,18 +27,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                      <Component id="btnempsumm" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="btncensumm" min="-2" pref="144" max="-2" attributes="0"/>
+                      <Component id="btncs" min="-2" pref="144" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="486" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="btnmngemp" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnme" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                              <Component id="btnwrkassng" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnwa" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnnotify" min="-2" pref="123" max="-2" attributes="0"/>
                           </Group>
@@ -62,13 +62,13 @@
               <EmptySpace pref="63" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnnotify" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="btnwrkassng" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="btnmngemp" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="btnwa" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="btnme" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnempsumm" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="btncensumm" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="btnes" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                  <Component id="btncs" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="91" max="-2" attributes="0"/>
@@ -77,12 +77,12 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnmngemp">
+    <Component class="javax.swing.JButton" name="btnme">
       <Properties>
         <Property name="text" type="java.lang.String" value="Manage Employee"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnmngempActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnmeActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnnotify">
@@ -90,17 +90,17 @@
         <Property name="text" type="java.lang.String" value="Notification"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnempsumm">
+    <Component class="javax.swing.JButton" name="btnes">
       <Properties>
         <Property name="text" type="java.lang.String" value="Employee Summary"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btncensumm">
+    <Component class="javax.swing.JButton" name="btncs">
       <Properties>
         <Property name="text" type="java.lang.String" value="Census Summary"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnwrkassng">
+    <Component class="javax.swing.JButton" name="btnwa">
       <Properties>
         <Property name="text" type="java.lang.String" value="Work Assingment"/>
       </Properties>

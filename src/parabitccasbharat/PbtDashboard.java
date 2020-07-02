@@ -18,10 +18,12 @@ public class PbtDashboard extends javax.swing.JFrame {
 
     
     ParabitDBC dbc;
+    PbtEmpData empdata;
     /**
      * Creates new form PbtDashboard
      */
-    public PbtDashboard() {
+    public PbtDashboard(PbtEmpData data) {
+        empdata = data;
         initComponents();
         DefaultTableModel model = (DefaultTableModel)nottable.getModel();
         String query = "SELECT * FROM pbtnotification";
@@ -51,31 +53,31 @@ public class PbtDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnmngemp = new javax.swing.JButton();
+        btnme = new javax.swing.JButton();
         btnnotify = new javax.swing.JButton();
-        btnempsumm = new javax.swing.JButton();
-        btncensumm = new javax.swing.JButton();
-        btnwrkassng = new javax.swing.JButton();
+        btnes = new javax.swing.JButton();
+        btncs = new javax.swing.JButton();
+        btnwa = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         nottable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnmngemp.setText("Manage Employee");
-        btnmngemp.addActionListener(new java.awt.event.ActionListener() {
+        btnme.setText("Manage Employee");
+        btnme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnmngempActionPerformed(evt);
+                btnmeActionPerformed(evt);
             }
         });
 
         btnnotify.setText("Notification");
 
-        btnempsumm.setText("Employee Summary");
+        btnes.setText("Employee Summary");
 
-        btncensumm.setText("Census Summary");
+        btncs.setText("Census Summary");
 
-        btnwrkassng.setText("Work Assingment");
+        btnwa.setText("Work Assingment");
 
         nottable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,17 +99,17 @@ public class PbtDashboard extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(121, 121, 121)
-                        .addComponent(btnempsumm)
+                        .addComponent(btnes)
                         .addGap(47, 47, 47)
-                        .addComponent(btncensumm, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btncs, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnmngemp)
+                                .addComponent(btnme)
                                 .addGap(46, 46, 46)
-                                .addComponent(btnwrkassng)
+                                .addComponent(btnwa)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnnotify, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(50, Short.MAX_VALUE))
@@ -124,12 +126,12 @@ public class PbtDashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnnotify, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnwrkassng, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnmngemp, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnwa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnme, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnempsumm, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btncensumm, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btncs, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -137,12 +139,11 @@ public class PbtDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnmngempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmngempActionPerformed
-
-        PbtManageEmployee pme = new PbtManageEmployee();
+    private void btnmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmeActionPerformed
+        PbtManageEmployee pme = new PbtManageEmployee(empdata);
         pme.setVisible(true);
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnmngempActionPerformed
+    }//GEN-LAST:event_btnmeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,17 +175,17 @@ public class PbtDashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PbtDashboard().setVisible(true);
+                //new PbtDashboard().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btncensumm;
-    private javax.swing.JButton btnempsumm;
-    private javax.swing.JButton btnmngemp;
+    private javax.swing.JButton btncs;
+    private javax.swing.JButton btnes;
+    private javax.swing.JButton btnme;
     private javax.swing.JButton btnnotify;
-    private javax.swing.JButton btnwrkassng;
+    private javax.swing.JButton btnwa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable nottable;

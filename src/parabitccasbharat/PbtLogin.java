@@ -15,8 +15,9 @@ import javax.swing.JDialog;
  * @author ASUS
  */
 public class PbtLogin extends javax.swing.JFrame {
-    
+
     ParabitDBC db1;
+    PbtEmpData empdata;
 
     /**
      * Creates new form PbtLogin
@@ -26,9 +27,22 @@ public class PbtLogin extends javax.swing.JFrame {
         jLabel3.setVisible(false);
         tfempotp.setVisible(false);
         btnlogin.setVisible(false);
-        db1=new ParabitDBC();
+        db1 = new ParabitDBC();
         ParabitDBC dbc = new ParabitDBC();
-        
+    }
+
+    private void fetchData() {
+        try {
+            String empname = db1.rs1.getString("EmpName");
+            String empdesig = db1.rs1.getString("EmpDesig");
+            int empgrade = db1.rs1.getInt("Grade");
+            String empemail = db1.rs1.getString("Email");
+            String empcomputerno = db1.rs1.getString("ComputerNo");
+            empdata = new PbtEmpData(empname, empdesig, empgrade, empemail, empcomputerno);
+        }
+        catch(Exception e) {
+            System.out.print("error in fetchdata()"+e);
+        }
     }
 
     /**
@@ -53,7 +67,7 @@ public class PbtLogin extends javax.swing.JFrame {
 
         jToggleButton1.setText("jToggleButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Employee ID");
 
@@ -152,54 +166,45 @@ public class PbtLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_tfempotpActionPerformed
 
     private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
-        String s1,s2;
+        String s1, s2;
         s1 = tfempid.getText();
         s2 = tfemppass.getText();
         //tfempotp.setText(s1+"..."+s2);
-        String s = "Select * from pbtemployeetable where CEID = '"+s1+"' and Pass = '"+s2+"'";
+        String s = "Select * from pbtemployeetable where CEID = '" + s1 + "' and Pass = '" + s2 + "'";
         System.out.println(s);
-        try
-        {
-            db1.rs1= db1.stm.executeQuery(s);
-            if(db1.rs1.next())
-            {
+        try {
+            db1.rs1 = db1.stm.executeQuery(s);
+            if (db1.rs1.next()) {
                 jLabel3.setVisible(true);
                 tfempotp.setVisible(true);
                 btnlogin.setVisible(true);
                 tfempid.setEnabled(false);
                 tfemppass.setEnabled(false);
-            }
-            else
-            {
+                fetchData();
+            } else {
                 javax.swing.JOptionPane.showMessageDialog(null, "Wrong Password");
             }
+        } catch (Exception e) {
         }
-        catch(Exception e)
-        {}
-        
-                // TODO add your handling code here:
+
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnokActionPerformed
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-        String tfo=tfempotp.getText().toString();
-        String OTP="0000";
-        if(tfo.equals(OTP)) 
-        {
-        try{
-         int grade = db1.rs1.getInt("Grade");
-         PbtPosts pp = new PbtPosts(grade);
-         //pp.setModalityType(ModalityType.APPLICATION_MODAL);
-         pp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-         pp.setVisible(true);
-         
-         } catch (Exception ex) {
-         ex.printStackTrace();
-         }
-        }
-        else
-            {
-                javax.swing.JOptionPane.showMessageDialog(null, "Wrong otp");
-            }// TODO add your handling code here:
+        String tfo = tfempotp.getText().toString();
+        String OTP = "0000";
+        if (tfo.equals(OTP)) {
+            try {
+                PbtPosts pp = new PbtPosts(empdata);
+                pp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                pp.setVisible(true);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(null, "Wrong otp");
+        }// TODO add your handling code here:
     }//GEN-LAST:event_btnloginActionPerformed
 
     private void tfemppassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfemppassActionPerformed

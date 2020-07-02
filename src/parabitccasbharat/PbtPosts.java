@@ -5,24 +5,25 @@
  */
 package parabitccasbharat;
 
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 /**
  *
  * @author ASUS
  */
-public class PbtPosts extends javax.swing.JDialog {
-    
-    PbtCensusDept pcd = new PbtCensusDept();
+public class PbtPosts extends javax.swing.JFrame {
 
     /**
      * Creates new form PbtPosts
      */
-    public PbtPosts(int grade) {
+    PbtEmpData empdata;
+    
+    public PbtPosts(PbtEmpData data) {
         initComponents();
-        System.out.println(grade);
-        switch(grade)
-        {
+        empdata = data;
+        //ParabitDBC dbc = new ParabitDBC();
+        System.out.println(data);
+        switch (data.getEmpgrade()) {
             case 100:
                 btnministry.setEnabled(false);
                 btncensusdept.setEnabled(false);
@@ -33,12 +34,12 @@ public class PbtPosts extends javax.swing.JDialog {
                 break;
             default:
                 btnpmo.setEnabled(false);
-                btnministry.setEnabled(false);         
+                btnministry.setEnabled(false);
         }
     }
+    
+    
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,37 +120,24 @@ public class PbtPosts extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnministryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnministryActionPerformed
-        try{
-         
-         //pcd.setModalityType(ModalityType.APPLICATION_MODAL);
-         pcd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-         pcd.setVisible(true);
-         } catch (Exception ex) {
-         ex.printStackTrace();
-         }// TODO add your handling code here:
+
+        PbtCensusDept pcd = new PbtCensusDept(empdata);
+        pcd.setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnministryActionPerformed
 
     private void btnpmoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpmoActionPerformed
-        try{
-         
-         //pcd.setModalityType(ModalityType.APPLICATION_MODAL);
-         pcd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-         pcd.setVisible(true);
-         } catch (Exception ex) {
-         ex.printStackTrace();
-         }// TODO add your handling code here:
+
+        PbtCensusDept pcd = new PbtCensusDept(empdata);
+        pcd.setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnpmoActionPerformed
 
     private void btncensusdeptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncensusdeptActionPerformed
 
-    try{
-         
-         //pcd.setModalityType(ModalityType.APPLICATION_MODAL);
-         pcd.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-         pcd.setVisible(true);
-         } catch (Exception ex) {
-         ex.printStackTrace();
-         }// TODO add your handling code here:
+        PbtCensusDept pcd = new PbtCensusDept(empdata);
+        pcd.setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_btncensusdeptActionPerformed
 
     /**
@@ -182,7 +170,7 @@ public class PbtPosts extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               //new PbtPosts().setVisible(true);
+                //new PbtPosts().setVisible(true);
             }
         });
     }
