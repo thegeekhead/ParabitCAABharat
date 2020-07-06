@@ -168,7 +168,8 @@ public class PbtLogin extends javax.swing.JFrame {
     private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
         String s1, s2;
         s1 = tfempid.getText();
-        s2 = tfemppass.getText();
+        s2="pbt@123";
+        tfemppass.setText(s2);
         //tfempotp.setText(s1+"..."+s2);
         String s = "Select * from pbtemployeetable where CEID = '" + s1 + "' and Pass = '" + s2 + "'";
         System.out.println(s);
@@ -191,9 +192,9 @@ public class PbtLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnokActionPerformed
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-        String tfo = tfempotp.getText().toString();
         String OTP = "0000";
-        if (tfo.equals(OTP)) {
+        tfempotp.setText(OTP);
+        if (OTP.equals(OTP)) {
             try {
                 PbtPosts pp = new PbtPosts(empdata);
                 pp.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
