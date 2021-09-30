@@ -13,16 +13,24 @@ public class PbtEmpData {
 
     public String empname;
     public String empdesig;
+    public String empceid;
     public int empgrade;
     public String empemail;
     public String empcomputerno;
+    public String empcity;
+    public String empdistrict;
+    public String empstate;
 
-    public PbtEmpData(String empname, String empdesig, int empgrade, String empemail, String empcomputerno) {
+    public PbtEmpData(String empname, String empdesig, String empceid, int empgrade, String empemail, String empcomputerno, String empcity, String empdistrict, String empstate) {
         this.empname = empname;
         this.empdesig = empdesig;
+        this.empceid = empceid;
         this.empgrade = empgrade;
         this.empemail = empemail;
         this.empcomputerno = empcomputerno;
+        this.empcity = empcity;
+        this.empdistrict = empdistrict;
+        this.empstate = empstate;
     }
 
     public String getEmpname() {
@@ -31,6 +39,10 @@ public class PbtEmpData {
 
     public String getEmpdesig() {
         return empdesig;
+    }
+    
+    public String getEmpceid() {
+        return empceid;
     }
 
     public int getEmpgrade() {
@@ -43,5 +55,17 @@ public class PbtEmpData {
 
     public String getEmpcomputerno() {
         return empcomputerno;
+    }
+    
+    public String getEmpcity() {
+        return empcity;
+    }
+    
+    public String getEmpdistrict(){      
+        return empdistrict;
+    }
+    
+    public String getEmpstate() {
+        return empstate;
     }
 }

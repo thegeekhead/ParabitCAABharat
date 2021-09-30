@@ -8,6 +8,7 @@ package parabitccasbharat;
 import java.awt.Dialog;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.JDialog;
 
 /**
@@ -35,12 +36,16 @@ public class PbtLogin extends javax.swing.JFrame {
         try {
             String empname = db1.rs1.getString("EmpName");
             String empdesig = db1.rs1.getString("EmpDesig");
+            String empceid = db1.rs1.getString("CEID");
             int empgrade = db1.rs1.getInt("Grade");
             String empemail = db1.rs1.getString("Email");
             String empcomputerno = db1.rs1.getString("ComputerNo");
-            empdata = new PbtEmpData(empname, empdesig, empgrade, empemail, empcomputerno);
+            String empcity = db1.rs1.getString("AreaCity");
+            String empdistrict = db1.rs1.getString("AreaDist");
+            String empstate = db1.rs1.getString("AreaState");
+            empdata = new PbtEmpData(empname, empdesig, empceid, empgrade, empemail, empcomputerno, empcity, empdistrict, empstate);
         }
-        catch(Exception e) {
+        catch(SQLException e) {
             System.out.print("error in fetchdata()"+e);
         }
     }

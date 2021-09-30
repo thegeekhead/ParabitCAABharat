@@ -105,7 +105,7 @@ public class PbtManageEmployee extends javax.swing.JFrame {
 
     private void btnapointemplstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnapointemplstActionPerformed
 
-        PbtAppointedEmp pae = new PbtAppointedEmp(empdata);
+        PbtAppointedEmpList pae = new PbtAppointedEmpList(empdata);
         pae.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_btnapointemplstActionPerformed
 

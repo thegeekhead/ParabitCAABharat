@@ -5,13 +5,11 @@
  */
 package parabitccasbharat;
 
+import java.awt.event.ItemEvent;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -20,7 +18,13 @@ import javax.swing.table.TableModel;
 public class PbtNewAppointment extends javax.swing.JFrame {
 
     ParabitDBC dbc = new ParabitDBC();
+    String states, district, city;
+    String fetchceid;
+    ArrayList<String> arraygeid = new ArrayList<>();
+    String geid;
+    int fetchgrade;
     DefaultTableModel model;
+    boolean isClickable = false;
 
     /**
      * Creates new form PbtNewAppointment
@@ -29,17 +33,16 @@ public class PbtNewAppointment extends javax.swing.JFrame {
      */
     public PbtNewAppointment(PbtEmpData data) {
         initComponents();
+        //data.getEmpceid();
         empList(data);
         fillStates();
-        fillDistrict();
-        fillCity();
     }
 
     private void empList(PbtEmpData data) {
         model = (DefaultTableModel) tabemplst.getModel();
-        int fetchgrade = data.getEmpgrade();
+        fetchgrade = data.getEmpgrade();
+        fetchceid = data.getEmpceid();
         int sno = 0;
-        System.out.print("Grade" + fetchgrade + 1 + "fine");
         String qry = "SELECT * FROM `pbtemployeetable` WHERE Grade = " + (fetchgrade + 1) + " and Status = 0";
         model.setRowCount(0);
         try {
@@ -50,6 +53,8 @@ public class PbtNewAppointment extends javax.swing.JFrame {
                 String empname = dbc.rs1.getString("EmpName");
                 String grade = dbc.rs1.getString("Grade");
                 String wrkexp = dbc.rs1.getString("WorkExp");
+                geid = dbc.rs1.getString("GEID");
+                arraygeid.add(geid);
                 Object row[] = {sno, ceid, empname, grade, wrkexp};
                 model.addRow(row);
             }
@@ -61,46 +66,14 @@ public class PbtNewAppointment extends javax.swing.JFrame {
     private void fillStates() {
         try {
             String qry = "SELECT Distinct States FROM `pbtstates5`";
-            dbc = new ParabitDBC();
             dbc.rs1 = dbc.stm.executeQuery(qry);
             while (dbc.rs1.next()) {
-                String states = dbc.rs1.getString("States");
+                states = dbc.rs1.getString("States");
                 jcbstate.addItem(states);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
-    }
-
-    private void fillDistrict() {
-        try {
-            String qry = "SELECT Distinct District FROM `pbtstates5`";
-            dbc = new ParabitDBC();
-            dbc.rs1 = dbc.stm.executeQuery(qry);
-            while (dbc.rs1.next()) {
-                String district = dbc.rs1.getString("District");
-                jcbdistrict.addItem(district);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-
-    }
-
-    private void fillCity() {
-        try {
-            String qry = "SELECT Distinct SubDist FROM `pbtstates5`";
-            dbc = new ParabitDBC();
-            dbc.rs1 = dbc.stm.executeQuery(qry);
-            while (dbc.rs1.next()) {
-                String city = dbc.rs1.getString("SubDist");
-                jcbcity.addItem(city);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-
     }
 
     /**
@@ -145,41 +118,26 @@ public class PbtNewAppointment extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabemplst);
 
         jcbstate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--State--" }));
-        jcbstate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jcbstateMouseClicked(evt);
-            }
-        });
-        jcbstate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbstateActionPerformed(evt);
+        jcbstate.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbstateItemStateChanged(evt);
             }
         });
 
         jcbdistrict.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--District--" }));
-        jcbdistrict.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jcbdistrictMouseClicked(evt);
+        jcbdistrict.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbdistrictItemStateChanged(evt);
             }
         });
-        jcbdistrict.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbdistrictActionPerformed(evt);
-            }
-        });
-
+        
         jcbcity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--City--" }));
-        jcbcity.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jcbcityMouseClicked(evt);
+        jcbcity.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbcityItemStateChanged(evt);
             }
         });
-        jcbcity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbcityActionPerformed(evt);
-            }
-        });
-
+        
         jLabel1.setText("PbtNewAppointment");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -219,32 +177,72 @@ public class PbtNewAppointment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcbstateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbstateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbstateActionPerformed
-
-    private void jcbdistrictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbdistrictActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbdistrictActionPerformed
-
-    private void jcbcityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbcityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbcityActionPerformed
-
     private void tabemplstMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabemplstMouseClicked
+        String qry = null;
         int index = tabemplst.getSelectedRow();
-        String s = model.getValueAt(index, 1).toString();
-        String qry = "UPDATE pbtemployeetable SET Status = 1 WHERE CEID =" + s;
-        dbc = new ParabitDBC();
+        int x = Integer.parseInt(model.getValueAt(index, 0).toString());
+        String ceid = model.getValueAt(index, 1).toString();
+        String grade = model.getValueAt(index, 3).toString();
+        switch (grade) {
+            case "2" :
+                qry = "UPDATE pbtemployeetable SET Status = 1 , CRepEmpID = '"+fetchceid+"',AreaState = '" + jcbstate.getSelectedItem() + "' , AreaDist = 'ALL' , AreaCity = 'ALL' , CEID = '"+arraygeid.get(x-1)+grade+"' WHERE GEID = '"+arraygeid.get(x-1)+"'";
+                break;
+            case "3":
+                qry = "UPDATE pbtemployeetable SET Status = 1 , CRepEmpID = '"+fetchceid+"',AreaState = '" + jcbstate.getSelectedItem() + "' , AreaDist = '"+jcbdistrict.getSelectedItem()+"' , AreaCity = 'ALL' , CEID = '"+arraygeid.get(x-1)+grade+"' WHERE GEID = '"+arraygeid.get(x-1)+"'";
+                break;
+            case "4":
+                qry = "UPDATE pbtemployeetable SET Status = 1 , CRepEmpID = '"+fetchceid+"',AreaState = '" + jcbstate.getSelectedItem() + "' , AreaDist = '"+jcbdistrict.getSelectedItem()+"' , AreaCity = '"+jcbcity.getSelectedItem()+"' , CEID = '"+arraygeid.get(x-1)+grade+"' WHERE GEID = '"+arraygeid.get(x-1)+"'";
+                break;
+        }
         try {
-            int i = dbc.stm.executeUpdate(qry);
-            //System.out.print(i);
+            dbc.stm.executeUpdate(qry);
+            JOptionPane.showMessageDialog(null, "Appointed");
+            model.removeRow(tabemplst.getSelectedRow());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-        JOptionPane.showMessageDialog(null, "Appointed");
-        model.removeRow(tabemplst.getSelectedRow());
+        
     }//GEN-LAST:event_tabemplstMouseClicked
+
+    private void jcbstateItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbstateItemStateChanged
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            try {
+                isClickable = false;
+                String qry = "SELECT Distinct District FROM `pbtstates5` WHERE States = '" + jcbstate.getSelectedItem() + "'";
+                dbc.rs1 = dbc.stm.executeQuery(qry);
+                jcbdistrict.removeAllItems();
+                while (dbc.rs1.next()) {
+                    district = dbc.rs1.getString("District");
+                    jcbdistrict.addItem(district);
+                    System.out.println(district);
+                }
+                isClickable = true;
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_jcbstateItemStateChanged
+
+    private void jcbdistrictItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbdistrictItemStateChanged
+        if (isClickable) {
+            try {
+                String qry = "SELECT Distinct SubDist FROM `pbtstates5` WHERE District = '" + jcbdistrict.getSelectedItem() + "'";
+                dbc.rs1 = dbc.stm.executeQuery(qry);
+                jcbcity.removeAllItems();
+                while (dbc.rs1.next()) {
+                    city = dbc.rs1.getString("SubDist");
+                    jcbcity.addItem(city);
+                    System.out.println(city + "city");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_jcbdistrictItemStateChanged
+
+    private void jcbcityItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbcityItemStateChanged
+        
+    }//GEN-LAST:event_jcbcityItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -255,5 +253,4 @@ public class PbtNewAppointment extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jcbstate;
     private javax.swing.JTable tabemplst;
     // End of variables declaration//GEN-END:variables
-
 }
